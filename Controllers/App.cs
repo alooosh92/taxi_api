@@ -241,11 +241,12 @@ namespace taxi_api.Controllers
         [HttpGet]
         [Route("GetAllTrip")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Driver,Admin")]
-        public async Task<ActionResult<List<ShowTripVM>>> GetAllTrip(double lat,double log)
+        public async Task<ActionResult<List<ShowTripVM>>> GetAllTrip()
         {
             try
             {
-                return await Repository.GetAllTrip(lat,log);
+                var u = UserManager.GetUserId(User);
+                return await Repository.GetAllTrip(u!);
             }
             catch { throw; }
         }

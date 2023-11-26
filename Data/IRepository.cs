@@ -29,7 +29,7 @@ namespace taxi_api.Data
         public Task<ActionResult<bool>> DeleteTrip(string userId, Guid id);
         public Task<ActionResult<bool>> AcceptedTrip(Guid id,string driverId);
         public Task<ActionResult<bool>> EndedTrip(Guid id);
-        public Task<ActionResult<List<ShowTripVM>>> GetAllTrip(double lat, double lon);
+        public Task<ActionResult<List<ShowTripVM>>> GetAllTrip(string phone);
         public Task<ActionResult<ShowTripVM>?> GetTrip(Guid id);
         public Task<ActionResult<List<TripForWebSocketVW>>> GetAllTripForDriver(string userId,double lat, double lon);
         public Task<ActionResult<List<TripForUser>>> GetAllTripForUser(string userId);

@@ -285,16 +285,14 @@ namespace taxi_api.Data
             
         }
        
-        public async Task<ActionResult<List<ShowTripVM>>> GetAllTrip(double lat,double lon)
+        public async Task<ActionResult<List<ShowTripVM>>> GetAllTrip(string phone)
         {
             try
             {
-                List<Trip> trips = await DB.Trips.Include(a => a.User!.UserIdentity).Include(d=>d.Drive!.IdentityUser).Where(a => a.Accepted == null).ToListAsync();
+                List<Trip> trips = await DB.Trips.Include(a => a.User!.UserIdentity).Include(d=>d.Drive!.IdentityUser).Where(a => a.User!.UserIdentity!.PhoneNumber == phone).ToListAsync();
                 List<ShowTripVM> showTripVMs = new List<ShowTripVM>();                
                 foreach (Trip trip in trips)
                 {
-                    var m = Math.Sqrt(Math.Pow((double)(lat - trip!.FromLate!), 2) + Math.Pow((double)(lon! - trip.FromLong!), 2)) * 100;
-                    if (m <= 10) {
                         ShowTripVM showTrip = new ShowTripVM
                         {
                             Accepted = trip.Accepted,
@@ -316,7 +314,7 @@ namespace taxi_api.Data
                             UserRating = trip.User.Rating,
                         };
                         showTripVMs.Add(showTrip);
-                    }
+                    
                 }
                 return showTripVMs;
             }
