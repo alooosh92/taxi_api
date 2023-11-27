@@ -240,7 +240,7 @@ namespace taxi_api.Controllers
         }
         [HttpGet]
         [Route("GetAllTrip")]
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Driver,Admin")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "User")]
         public async Task<ActionResult<List<ShowTripVM>>> GetAllTrip()
         {
             try
